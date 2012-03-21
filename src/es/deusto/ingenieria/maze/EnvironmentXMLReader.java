@@ -29,6 +29,11 @@ public class EnvironmentXMLReader extends InformationXMLReader {
                 int columns = Integer.parseInt(attributes.getValue("columns"));
                 int rows = Integer.parseInt(attributes.getValue("rows"));
                 cells = new Cell[columns][rows];
+                for(int i=0; i < columns; i++) {
+                    for (int j=0; i < rows; j++) {
+                        cells[i][j] = new Cell();
+                    }
+                }
             } else if (qName.equals("aike:start")) {
                 int column = Integer.parseInt(attributes.getValue("column"));
                 int row = Integer.parseInt(attributes.getValue("row"));
@@ -52,6 +57,8 @@ public class EnvironmentXMLReader extends InformationXMLReader {
             }
         } catch (Exception ex) {
             System.out.println(this.getClass().getName() + ".startElement(): " + ex);
+            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
     }
 

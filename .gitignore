@@ -1,4 +1,9 @@
 
 bin/*
+log/*
+build/*
+dist/*
+nbproject/*
+build.xml
 
 *.class
