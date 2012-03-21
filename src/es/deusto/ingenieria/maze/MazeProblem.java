@@ -2,6 +2,7 @@ package es.deusto.ingenieria.maze;
 
 import es.deusto.ingenieria.aike.formulation.Operator;
 import es.deusto.ingenieria.aike.formulation.Problem;
+import es.deusto.ingenieria.aike.formulation.State;
 import es.deusto.ingenieria.aike.search.Node;
 import es.deusto.ingenieria.aike.search.SearchMethod;
 import es.deusto.ingenieria.maze.MoveOperator.Direction;
@@ -10,8 +11,7 @@ import java.util.List;
 
 public class MazeProblem extends Problem {
 
-    public MazeProblem(Object initialEnvironment, Object finalEnvironment) {
-        super(initialEnvironment, finalEnvironment);
+    public MazeProblem() {
         createOperators();
     }
 
@@ -42,4 +42,12 @@ public class MazeProblem extends Problem {
         }
     }
 
+    @Override
+    public boolean isFinalState(State state) {
+        Environment environment = (Environment) state.getInformation();
+        return environment.getCurrentLocation().equals(
+                                                environment.getEndLocation());
+    }
+
+    
 }
