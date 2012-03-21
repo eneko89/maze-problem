@@ -4,7 +4,6 @@
  */
 package es.deusto.ingenieria.maze;
 
-import com.sun.org.apache.xpath.internal.operations.Equals;
 import java.util.ArrayList;
 
 /**
