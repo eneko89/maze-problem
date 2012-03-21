@@ -9,8 +9,8 @@ public class MoveOperator extends Operator {
     public enum Direction {
         LEFT,
         RIGHT,
-        TOP,
-        BOTTOM
+        UP,
+        DOWN
     }
     private Direction direction;
 
@@ -22,26 +22,47 @@ public class MoveOperator extends Operator {
     @Override
     protected State effect(State state) {
         Environment environment = (Environment) state.getInformation();
-        Point newLocation = environment.getCurrentLocation();
-        // TODO move to the new location.
+        Point currentLocation = environment.getCurrentLocation();
         switch(direction) {
-            case BOTTOM:
-                break;
-            case TOP:
-                break;
+            case UP:
+                return 
+                    new State(environment.derive(new Point(currentLocation.x,
+                                                           currentLocation.y - 1)));
+            case DOWN:
+                return 
+                    new State(environment.derive(new Point(currentLocation.x,
+                                                           currentLocation.y + 1)));
             case LEFT:
-                break;
+                return
+                    new State(environment.derive(new Point(currentLocation.x - 1,
+                                                           currentLocation.y)));
             case RIGHT:
-                break;
+                return 
+                    new State(environment.derive(new Point(currentLocation.x + 1,
+                                                           currentLocation.y)));
+            default:
+                return null;
         }
-        return null;
     }
 
     @Override
     protected boolean isApplicable(State state) {
             Environment environment = (Environment) state.getInformation();
-            // TODO return true when the operator is applicable and false if not.
-            return false;
+            int columns = environment.getColumnCount();
+            int rows = environment.getRowCount();
+            Point currentLocation = environment.getCurrentLocation();
+        switch(direction) {
+            case UP:
+                return currentLocation.y > 0;
+            case DOWN:
+                return currentLocation.y < environment.getRowCount() - 1;
+            case LEFT:
+                return currentLocation.x > 0;
+            case RIGHT:
+                return currentLocation.x < environment.getColumnCount() - 1;
+            default:
+                return false;
+        }
     }
 
 }

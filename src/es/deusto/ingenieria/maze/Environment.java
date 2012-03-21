@@ -35,7 +35,15 @@ public class Environment {
     public void setCellAt(int column, int row, Cell cell) {
         cells[column][row] = cell;
     }
+    
+    public int getRowCount() {
+        return cells[0].length;
+    }
 
+    public int getColumnCount() {
+        return cells.length;
+    }
+    
     public Point getEndLocation() {
         return endLocation;
     }
@@ -68,4 +76,18 @@ public class Environment {
         this.cells = cells;
     }
     
+    /**
+     * A factory method that clones this Environment, creating a new derived
+     * one with the currentLocation given as parameter.
+     * 
+     * Use this to create new derived environments and not the public
+     * constructor, which is intended only to be used the first time the
+     * environment is created.
+     * 
+     * @return the new derived Environment
+     */
+    public Environment derive(Point newCurrentLocation) {
+        return new Environment(cells, startLocation, endLocation,
+                               newCurrentLocation);
+    }
 }
