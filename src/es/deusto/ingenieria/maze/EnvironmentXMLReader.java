@@ -30,35 +30,35 @@ public class EnvironmentXMLReader extends InformationXMLReader {
                 int rows = Integer.parseInt(attributes.getValue("rows"));
                 cells = new Cell[columns][rows];
                 for(int i=0; i < columns; i++) {
-                    for (int j=0; i < rows; j++) {
+                    for (int j=0; j < rows; j++) {
                         cells[i][j] = new Cell();
                     }
                 }
             } else if (qName.equals("aike:start")) {
-                int column = Integer.parseInt(attributes.getValue("column"));
-                int row = Integer.parseInt(attributes.getValue("row"));
+                int column = Integer.parseInt(attributes.getValue("column")) - 1;
+                int row = Integer.parseInt(attributes.getValue("row")) - 1;
                 startLocation = new Point(column, row);
             } else if (qName.equals("aike:end")) {
-                int column = Integer.parseInt(attributes.getValue("column"));
-                int row = Integer.parseInt(attributes.getValue("row"));
+                int column = Integer.parseInt(attributes.getValue("column")) - 1;
+                int row = Integer.parseInt(attributes.getValue("row")) - 1;
                 endLocation = new Point(column, row);
             } else if (qName.equals("aike:left")) {
-                int column = Integer.parseInt(attributes.getValue("column"));
-                int row = Integer.parseInt(attributes.getValue("row"));
+                int column = Integer.parseInt(attributes.getValue("column")) - 1;
+                int row = Integer.parseInt(attributes.getValue("row")) - 1;
                 cells[column][row].setFoot(Foot.LEFT);
             } else if (qName.equals("aike:right-wall")) {
-                int column = Integer.parseInt(attributes.getValue("column"));
-                int row = Integer.parseInt(attributes.getValue("row"));
+                int column = Integer.parseInt(attributes.getValue("column")) - 1;
+                int row = Integer.parseInt(attributes.getValue("row")) - 1;
                 cells[column][row].addWall(Wall.RIGHT);
             } else if (qName.equals("aike:bottom-wall")) {
-                int column = Integer.parseInt(attributes.getValue("column"));
-                int row = Integer.parseInt(attributes.getValue("row"));
+                int column = Integer.parseInt(attributes.getValue("column")) - 1;
+                int row = Integer.parseInt(attributes.getValue("row")) - 1;
                 cells[column][row].addWall(Wall.BOTTOM);
             }
         } catch (Exception ex) {
             System.out.println(this.getClass().getName() + ".startElement(): " + ex);
             ex.printStackTrace();
-            throw new RuntimeException(ex);
+            System.exit(1);
         }
     }
 

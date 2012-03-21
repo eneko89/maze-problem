@@ -1,7 +1,7 @@
 package es.deusto.ingenieria.maze;
 
 import es.deusto.ingenieria.aike.formulation.State;
-import es.deusto.ingenieria.aike.search.blind.BreadthFSwithLog;
+import es.deusto.ingenieria.aike.search.blind.BreadthFS;
 import java.util.List;
 
 public class MainProgram {
@@ -14,7 +14,7 @@ public class MainProgram {
         EnvironmentXMLReader SAXParser = new EnvironmentXMLReader("data/feetmaze-1.xml"); 					
         State initialState = new State((Environment)SAXParser.getInformation());
         problem.addInitialState(initialState);		
-        List<String> operators = problem.solve(BreadthFSwithLog.getInstance());
+        List<String> operators = problem.solve(BreadthFS.getInstance());
     }
 
 }
