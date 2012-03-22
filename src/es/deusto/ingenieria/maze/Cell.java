@@ -43,5 +43,13 @@ public class Cell {
     public void setFoot(Foot foot) {
         this.foot = foot;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        else
+            return false;
+    }
     
 }

@@ -46,9 +46,9 @@ public class MazeProblem extends Problem {
     @Override
     public boolean isFinalState(State state) {
         Environment environment = (Environment) state.getInformation();
-        Point finalLoc = environment.getCurrentLocation();
-        Point currentLoc = environment.getEndLocation();
-        return (finalLoc.x == currentLoc.x)&&(finalLoc.y == currentLoc.y);
+        System.out.println(environment.getCurrentLocation().x + " " + environment.getCurrentLocation().y);
+        return environment.getCurrentLocation()
+                                .equals(environment.getEndLocation());
     }
 
     

@@ -90,4 +90,23 @@ public class Environment {
         return new Environment(cells, startLocation, endLocation,
                                newCurrentLocation);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if ((obj != null)&&(obj instanceof Environment)) {
+            return 
+                ((Environment)obj).getCurrentLocation() == this.currentLocation;
+        } else
+            return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + (this.currentLocation != null
+                            ? this.currentLocation.hashCode()
+                            : 0);
+        return hash;
+    }
+    
 }

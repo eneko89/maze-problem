@@ -47,15 +47,13 @@ public class MoveOperator extends Operator {
 
     @Override
     protected boolean isApplicable(State state) {
-            Environment environment = (Environment) state.getInformation();
-            int columns = environment.getColumnCount();
-            int rows = environment.getRowCount();
-            Point currentLocation = environment.getCurrentLocation();
+        Environment environment = (Environment) state.getInformation();
+        Point currentLocation = environment.getCurrentLocation();
         switch(direction) {
             case UP:
                 return currentLocation.y > 0;
             case DOWN:
-                return currentLocation.y < environment.getRowCount() - 1;
+                return currentLocation.y < environment.getRowCount() - 1 ;
             case LEFT:
                 return currentLocation.x > 0;
             case RIGHT:
