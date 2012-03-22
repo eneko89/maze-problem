@@ -6,7 +6,6 @@ import es.deusto.ingenieria.aike.formulation.State;
 import es.deusto.ingenieria.aike.search.Node;
 import es.deusto.ingenieria.aike.search.SearchMethod;
 import es.deusto.ingenieria.maze.MoveOperator.Direction;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class MazeProblem extends Problem {
     @Override
     public boolean isFinalState(State state) {
         Environment environment = (Environment) state.getInformation();
-        System.out.println(environment.getCurrentLocation().x + " " + environment.getCurrentLocation().y);
+        //System.out.println(environment.getCurrentLocation().x + " " + environment.getCurrentLocation().y);
         return environment.getCurrentLocation()
                                 .equals(environment.getEndLocation());
     }
