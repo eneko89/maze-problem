@@ -43,6 +43,17 @@ public class Cell {
     public void setFoot(Foot foot) {
         this.foot = foot;
     }
+    
+    public boolean hasWalls() {
+        return ((walls != null)&&(!walls.isEmpty()));
+    }
+    
+    public boolean hasWall(Wall wall) {
+        if (this.hasWalls()) {
+            return walls.contains(wall);
+        } else
+            return false;
+    }
 
     @Override
     public boolean equals(Object obj) {

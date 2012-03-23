@@ -32,8 +32,16 @@ public class Environment {
         return cells[column][row];
     }
     
+    public Cell getCellAt(Point p) {
+        return getCellAt(p.x, p.y);
+    }
+    
     public void setCellAt(int column, int row, Cell cell) {
         cells[column][row] = cell;
+    }
+    
+    public void setCellAt(Point p, Cell cell) {
+        setCellAt(p.x, p.y, cell);
     }
     
     public int getRowCount() {
