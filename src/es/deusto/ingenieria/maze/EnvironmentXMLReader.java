@@ -17,8 +17,12 @@ public class EnvironmentXMLReader extends InformationXMLReader {
         super(fileXML);
     }
 
-    public Object getInformation() {
+    public Environment getStartEnvironment() {
         return new Environment(cells, startLocation, endLocation);
+    }
+    
+    public Environment getFinalEnvironment() {
+        return getStartEnvironment().derive(endLocation);
     }
     
     @Override

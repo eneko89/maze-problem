@@ -27,7 +27,7 @@ public class MazeEvalFunction extends EvaluationFunction {
     }
     
     private int calculateManhattanDist(Point a, Point b) {
-        return Math.abs(b.x - a.x) + Math.abs(b.y - a.y);
+        return -(Math.abs(b.x - a.x) + Math.abs(b.y - a.y));
     }
     
 }

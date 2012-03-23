@@ -27,25 +27,27 @@ public class MazeProblem extends Problem {
         this.addOperator(opMoveRight);
     }
     
+    /**
+     * Returns the list of the operators in string format if it finds a
+     * solution and null if it is unable to find one.
+     * 
+     * @param searchMethod
+     * @return list of the string representation of the operators
+     */
     public List<String> solve(SearchMethod searchMethod) {
         Node finalNode = searchMethod.search(this, this.getInitialStates().get(0));
-
         if (finalNode != null) {
-            System.out.println("Solution found!!");
             List<String> operators = new ArrayList<String>();
             searchMethod.solutionPath(finalNode, operators);
             searchMethod.createSolutionLog(operators);
             return operators;
-        } else {
-            System.out.println("Unable to find the solution!");
+        } else
             return null;
-        }
     }
 
     @Override
     public boolean isFinalState(State state) {
         Environment environment = (Environment) state.getInformation();
-        //System.out.println(environment.getCurrentLocation().x + " " + environment.getCurrentLocation().y);
         return environment.getCurrentLocation()
                                 .equals(environment.getEndLocation());
     }
