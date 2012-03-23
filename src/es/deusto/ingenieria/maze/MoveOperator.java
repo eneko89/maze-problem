@@ -57,7 +57,7 @@ public class MoveOperator extends Operator {
                     Cell adjacentCell = environment.getCellAt(currentLocation.x,
                                                               currentLocation.y - 1);
                     return (!currentCell.hasWall(Wall.TOP))
-                            && (adjacentCell.hasWall(Wall.BOTTOM));
+                            && (!adjacentCell.hasWall(Wall.BOTTOM));
                 } return false;
             case DOWN:
                 if (currentLocation.y < environment.getRowCount() - 1){
@@ -65,7 +65,7 @@ public class MoveOperator extends Operator {
                     Cell adjacentCell = environment.getCellAt(currentLocation.x,
                                                               currentLocation.y + 1);
                     return (!currentCell.hasWall(Wall.BOTTOM))
-                            && (adjacentCell.hasWall(Wall.TOP));
+                            && (!adjacentCell.hasWall(Wall.TOP));
                 } return false;
             case LEFT:
                 if (currentLocation.x > 0) {
@@ -73,7 +73,7 @@ public class MoveOperator extends Operator {
                     Cell adjacentCell = environment.getCellAt(currentLocation.x - 1,
                                                               currentLocation.y);
                     return (!currentCell.hasWall(Wall.LEFT))
-                            && (adjacentCell.hasWall(Wall.RIGHT));
+                            && (!adjacentCell.hasWall(Wall.RIGHT));
                 } return false;
             case RIGHT:
                 if (currentLocation.x < environment.getColumnCount() - 1) {
@@ -81,7 +81,7 @@ public class MoveOperator extends Operator {
                     Cell adjacentCell = environment.getCellAt(currentLocation.x + 1,
                                                               currentLocation.y);
                     return (!currentCell.hasWall(Wall.RIGHT))
-                            && (adjacentCell.hasWall(Wall.LEFT));
+                            && (!adjacentCell.hasWall(Wall.LEFT));
                 };
             default:
                 return false;
