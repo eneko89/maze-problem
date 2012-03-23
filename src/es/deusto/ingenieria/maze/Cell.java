@@ -27,8 +27,9 @@ public class Cell {
 
     public void addWall(Wall wall) {
         if (walls == null)
-            walls = new ArrayList<Wall>();
-        walls.add(wall);
+            walls = new ArrayList<Wall>(4);
+        if (!walls.contains(wall))
+            walls.add(wall);
     }
     
     public void removeWall(Wall wall) {
