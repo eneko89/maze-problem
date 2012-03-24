@@ -2,7 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="/WaterTreasure/lib/formulation.jar"/>
-	<classpathentry kind="lib" path="/WaterTreasure/lib/search.jar"/>
+	<classpathentry kind="lib" path="lib/formulation.jar"/>
+	<classpathentry kind="lib" path="lib/GAIL.jar"/>
+	<classpathentry kind="lib" path="lib/search.jar"/>
+	<classpathentry kind="lib" path="lib/timingframework-swing-4.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
