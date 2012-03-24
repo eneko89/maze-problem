@@ -103,7 +103,7 @@ public class Environment {
     public boolean equals(Object obj) {
         if ((obj != null)&&(obj instanceof Environment)) {
             return 
-                ((Environment)obj).getCurrentLocation() == this.currentLocation;
+                ((Environment)obj).getCurrentLocation().equals(this.currentLocation);
         } else
             return false;
     }
