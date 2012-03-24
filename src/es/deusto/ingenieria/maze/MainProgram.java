@@ -3,19 +3,19 @@ package es.deusto.ingenieria.maze;
 import es.deusto.ingenieria.aike.formulation.State;
 import es.deusto.ingenieria.aike.search.heuristic.BestFS;
 import es.deusto.ingenieria.maze.Cell.Foot;
+import es.deusto.ingenieria.maze.Cell.Wall;
 import gail.grid.Grid;
+import gail.grid.Grid.StrokeLocation;
 import gail.grid.GridElement;
 import gail.grid.Resources;
 import gail.grid.Resources.Robot;
-import gail.grid.animations.MoveDownAnimation;
-import gail.grid.animations.MoveLeftAnimation;
-import gail.grid.animations.MoveRightAnimation;
-import gail.grid.animations.MoveUpAnimation;
+import gail.grid.animations.*;
 import gail.grid.executors.ActionSequence;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -99,6 +99,27 @@ public class MainProgram {
                     grid.add(new GridElement(leftFoot), new Point(i,j));
                 else
                     grid.add(new GridElement(rightFoot), new Point(i,j));
+                if (cells[i][j].hasWalls()) {
+                    ArrayList<Wall> walls = cells[i][j].getWalls();
+                    for(Wall w : walls) {
+                        StrokeLocation strokeLocation = null;
+                        switch (w) {
+                            case LEFT:
+                                strokeLocation = StrokeLocation.LEFT;
+                                break;
+                            case RIGHT:
+                                strokeLocation = StrokeLocation.RIGHT;
+                                break;
+                            case TOP:
+                                strokeLocation = StrokeLocation.TOP;
+                                break;
+                            case BOTTOM:
+                                strokeLocation = StrokeLocation.BOTTOM;
+                                break;
+                        }
+                        grid.addOverlayStroke(10, new Point(i,j), strokeLocation);
+                    }
+                }
             }
         }
 
@@ -119,7 +140,38 @@ public class MainProgram {
         for(String operator : operators) {
             robotActions.execute(robot, operator);
         }
-        
+
+//         With another ActionSequence we are going to mark the path
+//        ActionSequence pathActions = new ActionSequence(500);
+//        Point tempPathPoint = env.getStartLocation();
+//        for(String operator : operators) {
+//            GridElement ge = new GridElement();
+//            ge.defineAction("appear", new AppearAnimation());
+//            ge.setBackground(Color.lightGray);
+//            ge.setOpaque(true);
+//            ge.setOpacity(0f);ge.setVisible(true);
+//            grid.add(ge, new Point(tempPathPoint.x, tempPathPoint.y));
+//            pathActions.execute(ge, "appear");
+//            switch(operator) {
+//                case "moveRIGHT":
+//                    tempPathPoint.setLocation(tempPathPoint.x + 1,
+//                                              tempPathPoint.y);
+//                    break;
+//                case "moveLEFT":
+//                    tempPathPoint.setLocation(tempPathPoint.x -1,
+//                                              tempPathPoint.y);
+//                    break;
+//                case "moveUP":
+//                    tempPathPoint.setLocation(tempPathPoint.x,
+//                                              tempPathPoint.y - 1);
+//                    break;
+//                case "moveDOWN":
+//                    tempPathPoint.setLocation(tempPathPoint.x,
+//                                              tempPathPoint.y + 1);
+//                    break;   
+//            }
+//        }
+//        
     }
 
 }

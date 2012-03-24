@@ -55,6 +55,10 @@ public class Cell {
         } else
             return false;
     }
+    
+    public ArrayList<Wall> getWalls() {
+        return walls;
+    }
 
     @Override
     public boolean equals(Object obj) {
