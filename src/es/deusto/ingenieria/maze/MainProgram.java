@@ -11,21 +11,25 @@ public class MainProgram {
      */
     public static void main(String[] args) {
         MazeProblem problem = new MazeProblem();
-        EnvironmentXMLReader SAXParser = new EnvironmentXMLReader("data/feetmaze-1.xml"); 					
-        State initialState = new State(SAXParser.getStartEnvironment());
-        State finalState = new State(SAXParser.getFinalEnvironment());
-        problem.addInitialState(initialState);
-        // Following line its not neccesary because isFinalState() is overriden
-        problem.addFinalState(finalState);
+        EnvironmentXMLReader SAXParser = new EnvironmentXMLReader("data/feetmaze-1.xml");
+        Environment initialEnvironment = SAXParser.getInformation();
+        problem.addInitialState(new State(initialEnvironment));
+        // We ommit adding a final state to the problem because we overrided
+        // isFinalState().
         List<String> operators = problem.solve(new BestFS(new MazeEvalFunction()));
         if (operators != null) {
             System.out.println("Solution found!!");
             for(String str : operators) {
                 System.out.println(str);
             }
+            createAndShowGUI();
         } else {
             System.out.println("Unable to find the solution!");
         }
+    }
+    
+    public static void createAndShowGUI() {
+        
     }
 
 }
