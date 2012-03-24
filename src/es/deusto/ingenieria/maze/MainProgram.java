@@ -102,11 +102,22 @@ public class MainProgram {
             }
         }
 
+        // Darker backgrounds for the start and final positions
+        // with two elements.
+        GridElement darkBg1 = new GridElement();
+        GridElement darkBg2 = new GridElement();
+        darkBg1.setBackground(Color.lightGray);
+        darkBg2.setBackground(Color.lightGray);
+        darkBg1.setOpaque(true);
+        darkBg2.setOpaque(true);
+        grid.add(darkBg1, env.getStartLocation());
+        grid.add(darkBg2, env.getEndLocation());
+        
         // Create an ActionSequence to execute actions on our element (the
         // robot) sequentially, with an initial delay of 500ms.
-        ActionSequence actions = new ActionSequence(500);
+        ActionSequence robotActions = new ActionSequence(500);
         for(String operator : operators) {
-            actions.execute(robot, operator);
+            robotActions.execute(robot, operator);
         }
         
     }
