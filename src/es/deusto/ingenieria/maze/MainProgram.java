@@ -6,6 +6,12 @@ import es.deusto.ingenieria.maze.Cell.Foot;
 import gail.grid.Grid;
 import gail.grid.GridElement;
 import gail.grid.Resources;
+import gail.grid.Resources.Robot;
+import gail.grid.animations.MoveDownAnimation;
+import gail.grid.animations.MoveLeftAnimation;
+import gail.grid.animations.MoveRightAnimation;
+import gail.grid.animations.MoveUpAnimation;
+import gail.grid.executors.ActionSequence;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -32,30 +38,52 @@ public class MainProgram {
             for(String str : operators) {
                 System.out.println(str);
             }
-            createAndShowGUI(initialEnvironment);
+            createAndShowGUI(initialEnvironment, operators);
         } else {
             System.out.println("Unable to find the solution!");
         }
     }
     
-    public static void createAndShowGUI(Environment env) {
+    /**
+     * Creates the GUI.
+     * 
+     * @param env 
+     *          the environment information, needed to build the GUI
+     * @param operators
+     *          string representation of the operators executed to reach the solution
+     */
+    public static void createAndShowGUI(Environment env,
+                                        List<String> operators) {
         
         /* * * * * * * * * * *
          * Creating the GUI  *
          * * * * * * * * * * */
 
-        JFrame f = new JFrame();
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.setSize(new Dimension(400, 200));
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setSize(new Dimension(600, 600));
 
         // Create the grid.
         Grid grid = new Grid(env.getColumnCount(), env.getRowCount());
         grid.setBackground(Color.white);
         grid.setForeground(Color.lightGray);
-        f.setContentPane(grid);
-        f.setVisible(true);
+        frame.setContentPane(grid);
+        frame.setVisible(true);
+
+        // Create a GridElement and define actions on them.
+        // Each action needs an instance of Animation.
+        GridElement robot = new GridElement(Resources.getRobot(Robot.BLACK));
+        robot.defineAction("moveRIGHT", new MoveRightAnimation());
+        robot.defineAction("moveLEFT", new MoveLeftAnimation());
+        robot.defineAction("moveUP", new MoveUpAnimation());
+        robot.defineAction("moveDOWN", new MoveDownAnimation());
+
+        // Add it to the start location
+        // Z-order of the components goes like this: The fist element added
+        // will be on top, and the last one on bottom.
+        grid.add(robot, env.getStartLocation());
         
-        // Loading feet images
+        // Load feet images
         BufferedImage leftFoot= Resources.loadImageResource(
                                         "/es/deusto/ingenieria/maze/left.png");
         BufferedImage rightFoot= Resources.loadImageResource(
@@ -73,6 +101,14 @@ public class MainProgram {
                     grid.add(new GridElement(rightFoot), new Point(i,j));
             }
         }
+
+        // Create an ActionSequence to execute actions on our element (the
+        // robot) sequentially, with an initial delay of 500ms.
+        ActionSequence actions = new ActionSequence(500);
+        for(String operator : operators) {
+            actions.execute(robot, operator);
+        }
+        
     }
 
 }
