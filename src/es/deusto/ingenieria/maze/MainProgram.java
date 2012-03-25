@@ -11,9 +11,12 @@ import gail.grid.Resources;
 import gail.grid.Resources.Robot;
 import gail.grid.animations.*;
 import gail.grid.executors.ActionSequence;
+import gail.utils.PresentationScreen;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +55,8 @@ public class MainProgram {
      * @param operators
      *          string representation of the operators executed to reach the solution
      */
-    public static void createAndShowGUI(Environment env,
-                                        List<String> operators) {
+    public static void createAndShowGUI(final Environment env,
+                                        final List<String> operators) {
         
         /* * * * * * * * * * *
          * Creating the GUI  *
@@ -68,11 +71,10 @@ public class MainProgram {
         grid.setBackground(Color.white);
         grid.setForeground(Color.lightGray);
         frame.setContentPane(grid);
-        frame.setVisible(true);
 
         // Create a GridElement and define actions on them.
         // Each action needs an instance of Animation.
-        GridElement robot = new GridElement(Resources.getRobot(Robot.BLACK));
+        final GridElement robot = new GridElement(Resources.getRobot(Robot.BLACK));
         robot.defineAction("moveRIGHT", new MoveRightAnimation());
         robot.defineAction("moveLEFT", new MoveLeftAnimation());
         robot.defineAction("moveUP", new MoveUpAnimation());
@@ -134,44 +136,33 @@ public class MainProgram {
         grid.add(darkBg1, env.getStartLocation());
         grid.add(darkBg2, env.getEndLocation());
         
-        // Create an ActionSequence to execute actions on our element (the
-        // robot) sequentially, with an initial delay of 500ms.
-        ActionSequence robotActions = new ActionSequence(500);
-        for(String operator : operators) {
-            robotActions.execute(robot, operator);
-        }
+        // Create a presentation screen :)
+        BufferedImage logo = Resources.loadImageResource("/es/deusto/ingenieria/"
+                                                          + "maze/mazep.png");
+        final PresentationScreen ps = new PresentationScreen("CLICK TO START!",
+                                                              logo);
+        ps.attach(frame);
+        ps.showScreen();
+        // Don't forget to make the frame visible!
+        frame.setVisible(true);
+        
+        // Actions will be executed after the PresentationScreen is clicked and
+        // hiden.
+        ps.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ps.hideScreen();
+                // Create an ActionSequence to execute actions on our element (the
+                // robot) sequentially, with an initial delay of 500ms.
+                ActionSequence robotActions = new ActionSequence(500);
+                for(String operator : operators) {
+                    robotActions.execute(robot, operator);
+                }
+            }
+        });
+        
 
-//         With another ActionSequence we are going to mark the path
-//        ActionSequence pathActions = new ActionSequence(500);
-//        Point tempPathPoint = env.getStartLocation();
-//        for(String operator : operators) {
-//            GridElement ge = new GridElement();
-//            ge.defineAction("appear", new AppearAnimation());
-//            ge.setBackground(Color.lightGray);
-//            ge.setOpaque(true);
-//            ge.setOpacity(0f);ge.setVisible(true);
-//            grid.add(ge, new Point(tempPathPoint.x, tempPathPoint.y));
-//            pathActions.execute(ge, "appear");
-//            switch(operator) {
-//                case "moveRIGHT":
-//                    tempPathPoint.setLocation(tempPathPoint.x + 1,
-//                                              tempPathPoint.y);
-//                    break;
-//                case "moveLEFT":
-//                    tempPathPoint.setLocation(tempPathPoint.x -1,
-//                                              tempPathPoint.y);
-//                    break;
-//                case "moveUP":
-//                    tempPathPoint.setLocation(tempPathPoint.x,
-//                                              tempPathPoint.y - 1);
-//                    break;
-//                case "moveDOWN":
-//                    tempPathPoint.setLocation(tempPathPoint.x,
-//                                              tempPathPoint.y + 1);
-//                    break;   
-//            }
-//        }
-//        
+
     }
 
 }
