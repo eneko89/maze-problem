@@ -9,7 +9,10 @@ import gail.grid.Grid.StrokeLocation;
 import gail.grid.GridElement;
 import gail.grid.Resources;
 import gail.grid.Resources.Robot;
-import gail.grid.animations.*;
+import gail.grid.animations.MoveDownAnimation;
+import gail.grid.animations.MoveLeftAnimation;
+import gail.grid.animations.MoveRightAnimation;
+import gail.grid.animations.MoveUpAnimation;
 import gail.grid.executors.ActionSequence;
 import gail.utils.PresentationScreen;
 import java.awt.Color;
@@ -38,8 +41,10 @@ public class MainProgram {
         List<String> operators = problem.solve(new BestFS(new MazeEvalFunction()));
         if (operators != null) {
             System.out.println("Solution found!!");
+            System.out.println("Path cost: " + operators.size());
+            System.out.println("Solution path:");
             for(String str : operators) {
-                System.out.println(str);
+                System.out.println(" - " + str);
             }
             createAndShowGUI(initialEnvironment, operators);
         } else {
